@@ -19,6 +19,7 @@ type SignUpForm = z.infer<typeof signUpForm>
 
 export function SignUp() {
   const navigate = useNavigate()
+
   const {
     register,
     handleSubmit,
@@ -27,14 +28,17 @@ export function SignUp() {
 
   async function handleSignUp(data: SignUpForm) {
     try {
+      console.log(data)
+
       await new Promise((resolve) => setTimeout(resolve, 2000))
-      toast.success('restaurant successfully registered.', {
+
+      toast.success('restaurant successfully registered!', {
         action: {
-          label: 'login',
+          label: 'Login',
           onClick: () => navigate('/signIn'), // Aqui aperte o botão e renvia
         },
       })
-    } catch {
+    } catch (error) {
       toast.error('error when registering restaurant.')
     }
   }
@@ -42,13 +46,15 @@ export function SignUp() {
   return (
     <>
       <Helmet title="cadasted" />
-      <div className="p-8 ">
+
+      <div className="p-8">
         <Button variant="ghost" asChild className="absolute right-8 top-8">
           <Link to="/signIn">make login</Link>
         </Button>
-        <div className="w-[350px] flex flex-col justify-center gap-6">
+
+        <div className="flex w-[350px] flex-col justify-center gap-6">
           <div className="flex flex-col gap-2 text-center">
-            <h1 className="text-2xl font-semibold tracking-tighter">
+            <h1 className="text-2xl font-semibold tracking-tight">
               Create account free
             </h1>
             <p className="text-sm text-muted-foreground">
@@ -56,7 +62,7 @@ export function SignUp() {
             </p>
           </div>
 
-          <form onSubmit={handleSubmit(handleSignUp)} className="space-y-4">
+          <form className="space-y-4" onSubmit={handleSubmit(handleSignUp)}>
             <div className="space-y-2">
               <Label htmlFor="restaurantName">Establishment Name</Label>
               <Input
@@ -65,6 +71,7 @@ export function SignUp() {
                 {...register('restaurantName')}
               />
             </div>
+
             <div className="space-y-2">
               <Label htmlFor="managerName">your name</Label>
               <Input
@@ -73,24 +80,28 @@ export function SignUp() {
                 {...register('managerName')}
               />
             </div>
+
             <div className="space-y-2">
               <Label htmlFor="email">your e-mail</Label>
               <Input id="email" type="email" {...register('email')} />
             </div>
+
             <div className="space-y-2">
               <Label htmlFor="phone">your phone</Label>
               <Input id="phone" type="tel" {...register('phone')} />
             </div>
+
             <Button disabled={isSubmitting} className="w-full" type="submit">
               finish register
             </Button>
+
             <p className="px-6 text-center text-sm leading-relaxed text-muted-foreground">
               as it continues you agree like our{' '}
-              <a className="underline underlineunderline-offset-4" href="#">
+              <a href="" className="underline underline-offset-4">
                 terms in servecer
               </a>{' '}
-              the{' '}
-              <a className="underline underlineunderline-offset-4" href="#">
+              e{' '}
+              <a href="" className="underline underline-offset-4">
                 political in privacite
               </a>
             </p>

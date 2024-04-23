@@ -24,13 +24,16 @@ export function SignIn() {
   async function handleSignIn(data: SignInForm) {
     try {
       await new Promise((resolve) => setTimeout(resolve, 2000))
-      toast.success('send a link of authentication to your email.', {
+
+      toast.success('send a link of authentication to your email..', {
         action: {
           label: 'resend',
-          onClick: () => handleSignIn(data), // Aqui aperte o botão e renvia
+          onClick: () => {
+            handleSignIn(data) // Aqui aperte o botão e renvia
+          },
         },
       })
-    } catch {
+    } catch (error) {
       toast.error('credentials invalid.')
     }
   }
@@ -38,13 +41,15 @@ export function SignIn() {
   return (
     <>
       <Helmet title="Login" />
+
       <div className="p-8">
         <Button variant="ghost" asChild className="absolute right-8 top-8">
           <Link to="/signUp">New Established</Link>
         </Button>
+
         <div className="flex w-[350px] flex-col justify-center gap-6">
           <div className="flex flex-col gap-2 text-center">
-            <h1 className="text-2xl font-semibold tracking-tighter">
+            <h1 className="text-2xl font-semibold tracking-tight">
               Access dashboard
             </h1>
             <p className="text-sm text-muted-foreground">
@@ -52,11 +57,12 @@ export function SignIn() {
             </p>
           </div>
 
-          <form onSubmit={handleSubmit(handleSignIn)} className="space-y-4">
+          <form className="space-y-4" onSubmit={handleSubmit(handleSignIn)}>
             <div className="space-y-2">
               <Label htmlFor="email">your e-mail</Label>
               <Input id="email" type="email" {...register('email')} />
             </div>
+
             <Button disabled={isSubmitting} className="w-full" type="submit">
               Access dashboard
             </Button>
