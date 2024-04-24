@@ -1,6 +1,15 @@
 import { Helmet } from 'react-helmet-async'
 
-import { Input } from '@/components/ui/input'
+import {
+  Table,
+  TableBody,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from '@/components/ui/table'
+
+import { OrederTableFilters } from './orderTableFilters'
+import { OrderTableRow } from './orderTableRow'
 
 export function Orders() {
   return (
@@ -10,10 +19,28 @@ export function Orders() {
         <h1 className="text-3xl font-bold tracking-tight">Orders</h1>
       </div>
       <div className="space-y-2.5">
-        <form className="flex items-center gap-2">
-          <span className="text-sm font-semibold">Filter</span>
-          <Input placeholder="Name of client" className="h-8 w-[320px]" />
-        </form>
+        <OrederTableFilters />
+        <div className="rounded-md border">
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead className="w-[64px]"></TableHead>
+                <TableHead className="w-[140px]">Identifier</TableHead>
+                <TableHead className="w-[180px]">Accomplished the</TableHead>
+                <TableHead className="w-[140px]">Status</TableHead>
+                <TableHead>Client</TableHead>
+                <TableHead className="w-[140px]">Total of order</TableHead>
+                <TableHead className="w-[164px]"></TableHead>
+                <TableHead className="w-[132px]"></TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {Array.from({ length: 10 }).map((_, i) => {
+                return <OrderTableRow key={i} />
+              })}
+            </TableBody>
+          </Table>
+        </div>
       </div>
     </>
   )
