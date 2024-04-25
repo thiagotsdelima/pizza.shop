@@ -4,6 +4,7 @@ import { DayOrdersAmountCard } from './dayOrdersAmountCard'
 import { MonthCanceledOrdersAmountCard } from './monthCanceledOrdersAmountCard'
 import { MonthOrdersAmountCard } from './monthOrdersAmountCard'
 import { MonthRevenueCard } from './monthRevenueCard'
+import { RevenueChart } from './revenueChart'
 
 export function Dashboard() {
   return (
@@ -16,6 +17,10 @@ export function Dashboard() {
           <MonthOrdersAmountCard />
           <DayOrdersAmountCard />
           <MonthCanceledOrdersAmountCard />
+        </div>
+
+        <div className="grid grid-cols-9 gap-4 ">
+          <RevenueChart />
         </div>
       </div>
     </>
