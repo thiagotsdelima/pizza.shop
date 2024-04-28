@@ -44,7 +44,7 @@ export function SignUp() {
       toast.success('restaurant successfully registered!', {
         action: {
           label: 'Login',
-          onClick: () => navigate(`/signIn?email=${data.email}`), // Aqui aperte o botão e renvia
+          onClick: () => navigate(`/sign-in?email=${data.email}`), // Aqui aperte o botão e renvia
         },
       })
     } catch (error) {
@@ -58,7 +58,7 @@ export function SignUp() {
 
       <div className="p-8">
         <Button variant="ghost" asChild className="absolute right-8 top-8">
-          <Link to="/signIn">make login</Link>
+          <Link to="/sign-in">make login</Link>
         </Button>
 
         <div className="flex w-[350px] flex-col justify-center gap-6">
