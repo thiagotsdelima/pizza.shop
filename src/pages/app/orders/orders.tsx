@@ -13,18 +13,23 @@ import {
   TableRow,
 } from '@/components/ui/table'
 
-import { OrederTableFilters } from './orderTableFilters'
+import { OrderTableFilters } from './orderTableFilters'
 import { OrderTableRow } from './orderTableRow'
 
 export function Orders() {
   const [searchParams, setSearchParams] = useSearchParams()
+
+  const orderId = searchParams.get('orderId')
+  const customerName = searchParams.get('customerName')
+  const status = searchParams.get('status')
+
   const pageIndex = z.coerce
     .number()
     .transform((page) => page - 1)
     .parse(searchParams.get('page') ?? '1')
   const { data: result } = useQuery({
-    queryKey: ['orders', pageIndex],
-    queryFn: () => getOrders({ pageIndex }),
+    queryKey: ['orders', pageIndex, orderId, customerName, status],
+    queryFn: () => getOrders({ pageIndex, orderId, customerName, status }),
   })
 
   function handlePaginate(pageIndex: number) {
@@ -40,7 +45,7 @@ export function Orders() {
       <div className="flex flex-col gap-4">
         <h1 className="text-3xl font-bold tracking-tight">Orders</h1>
         <div className="space-y-2.5">
-          <OrederTableFilters />
+          <OrderTableFilters />
           <div className="rounded-md border">
             <Table>
               <TableHeader>
