@@ -24,14 +24,14 @@ export interface GetOdersResponse {
 
 export async function getOrders({
   pageIndex,
-  orderID,
+  orderId,
   customerName,
   status,
 }: GetOrdersQuery) {
   const response = await api.get<GetOdersResponse>('/orders', {
     params: {
       pageIndex,
-      orderID,
+      orderId,
       customerName,
       status,
     },

@@ -29,16 +29,17 @@ export function OrderTableFilters() {
   const customerName = searchParams.get('customerName')
   const status = searchParams.get('status')
 
-  const { register, handleSubmit, control } = useForm<OrderFiltersSchema>({
-    resolver: zodResolver(orderFiltersSchema),
-    defaultValues: {
-      orderId: orderId ?? '',
-      customerName: customerName ?? '',
-      status: status ?? 'all',
-    },
-  })
+  const { register, handleSubmit, control, reset } =
+    useForm<OrderFiltersSchema>({
+      resolver: zodResolver(orderFiltersSchema),
+      defaultValues: {
+        orderId: orderId ?? '',
+        customerName: customerName ?? '',
+        status: status ?? 'all',
+      },
+    })
 
-  function handleFilter({ orderID, customerName, status }: OrderFiltersSchema) {
+  function handleFilter({ orderId, customerName, status }: OrderFiltersSchema) {
     setSearchParmams((state) => {
       if (orderId) {
         state.set('orderId', orderId)
@@ -60,6 +61,21 @@ export function OrderTableFilters() {
     })
   }
 
+  function handleClearFilters() {
+    setSearchParmams((state) => {
+      state.delete('orderId')
+      state.delete('customerName')
+      state.delete('status')
+      state.set('page', '1')
+      return state
+    })
+    reset({
+      orderId: '',
+      customerName: '',
+      status: '',
+    })
+  }
+
   return (
     <form
       onSubmit={handleSubmit(handleFilter)}
@@ -76,7 +92,7 @@ export function OrderTableFilters() {
         className="h-8 w-[320px]"
         {...register('customerName')}
       />
-         <Controller
+      <Controller
         name="status"
         control={control}
         render={({ field: { name, onChange, value, disabled } }) => {
@@ -93,7 +109,7 @@ export function OrderTableFilters() {
               </SelectTrigger>
               <SelectContent>
                 <SelectItem value="all">All status</SelectItem>
-                <SelectItem value="pending">Pendind</SelectItem>
+                <SelectItem value="pending">Pending</SelectItem>
                 <SelectItem value="canceled">Canceled</SelectItem>
                 <SelectItem value="processing">In preparation</SelectItem>
                 <SelectItem value="delivering">In delivery</SelectItem>
@@ -107,7 +123,12 @@ export function OrderTableFilters() {
         <Search className="mr-2 h-4 w-4" />
         Filter result
       </Button>
-      <Button type="button" variant="outline" size="xs">
+      <Button
+        onClick={handleClearFilters}
+        type="button"
+        variant="outline"
+        size="xs"
+      >
         <X className="mr-2 h-4 w-4" />
         Remove filter
       </Button>
