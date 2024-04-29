@@ -16,8 +16,11 @@ import {
   TableCell,
   TableFooter,
   TableHead,
+  TableHeader,
   TableRow,
 } from '@/components/ui/table'
+
+import { OrderDetailsSkeleton } from './orderDetailsSkeleton'
 
 export interface OrderDetailsProps {
   orderId: string
@@ -37,7 +40,7 @@ export function OrderDetails({ orderId, open }: OrderDetailsProps) {
         <DialogTitle>Order: {orderId}</DialogTitle>
         <DialogDescription>Details of order</DialogDescription>
       </DialogHeader>
-      {order && (
+      {order ? (
         <div className="space-y-6">
           <Table>
             <TableBody>
@@ -81,12 +84,14 @@ export function OrderDetails({ orderId, open }: OrderDetailsProps) {
             </TableBody>
           </Table>
           <Table>
-            <TableRow>
-              <TableHead>Product</TableHead>
-              <TableHead className="text-right">Amount</TableHead>
-              <TableHead className="text-right">Price</TableHead>
-              <TableHead className="text-right">subtotal</TableHead>
-            </TableRow>
+            <TableHeader>
+              <TableRow>
+                <TableHead>Product</TableHead>
+                <TableHead className="text-right">Amount</TableHead>
+                <TableHead className="text-right">Price</TableHead>
+                <TableHead className="text-right">subtotal</TableHead>
+              </TableRow>
+            </TableHeader>
             <TableBody>
               {order.orderItems.map((item) => {
                 return (
@@ -127,6 +132,8 @@ export function OrderDetails({ orderId, open }: OrderDetailsProps) {
             </TableFooter>
           </Table>
         </div>
+      ) : (
+        <OrderDetailsSkeleton />
       )}
     </DialogContent>
   )
