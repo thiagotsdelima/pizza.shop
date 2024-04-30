@@ -11,7 +11,7 @@ interface OrederStatusProps {
 
 const orderStatusMap: Record<OrderStatus, string> = {
   pending: 'Pending',
-  canceled: 'canceled',
+  canceled: 'Canceled',
   delivered: 'Delivered',
   delivering: 'Ongoing',
   processing: 'Processing',
@@ -22,29 +22,38 @@ export function OrderStatus({ status }: OrederStatusProps) {
     <div className="flex items-center gap-2">
       {status === 'pending' && (
         <span
-          data-testid="badge"
+          data-testid="badgePending"
           className="h-2 w-2 rounded-full bg-slate-400"
         />
       )}
       {status === 'canceled' && (
         <span
-          data-testid="badge"
+          data-testid="badgeCanceled"
           className="h-2 w-2 rounded-full bg-rose-500"
         />
       )}
       {status === 'delivered' && (
         <span
-          data-testid="badge"
+          data-testid="badgeDelivered"
           className="h-2 w-2 rounded-full bg-emerald-500"
         />
       )}
-      {['processing', 'delivering'].includes(status) && (
+      {status === 'processing' && (
         <span
-          data-testid="badge"
+          data-testid="badgeProcessing"
+          className="h-2 w-2 rounded-full bg-emerald-500"
+        />
+      )}
+      {['delivering'].includes(status) && (
+        <span
+          data-testid="badgeOngoing"
           className="h-2 w-2 rounded-full bg-amber-500"
         />
       )}
-      <span data-testid="badge" className="font-medium text-muted-foreground">
+      <span
+        data-testid={`badge${status}`}
+        className="font-medium text-muted-foreground"
+      >
         {orderStatusMap[status]}
       </span>
     </div>
