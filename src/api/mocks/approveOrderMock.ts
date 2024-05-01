@@ -3,7 +3,7 @@ import { http, HttpResponse } from 'msw'
 import { ApproveOrderParams } from '../approveOrder'
 
 export const aprroveOrderMock = http.patch<ApproveOrderParams, never, never>(
-  '/order/:orderId/approve',
+  '/orders/:orderId/approve',
   async ({ params }) => {
     if (params.orderId === 'error-order-id') {
       return new HttpResponse(null, { status: 400 })
