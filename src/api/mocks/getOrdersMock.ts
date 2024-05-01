@@ -3,9 +3,9 @@ import { http, HttpResponse } from 'msw'
 import { GetOrdersResponse } from '../getOrders'
 
 type Orders = GetOrdersResponse['orders']
-type OrdersStatus = GetOrdersResponse['orders'][number]['status']
+type OrderStatus = GetOrdersResponse['orders'][number]['status']
 
-const statuses: OrdersStatus[] = [
+const statuses: OrderStatus[] = [
   'pending',
   'processing',
   'canceled',
@@ -15,7 +15,7 @@ const statuses: OrdersStatus[] = [
 
 const orders: Orders = Array.from({ length: 60 }).map((_, i) => {
   return {
-    orderId: `order-${1 + 1}`,
+    orderId: `order-${i + 1}`,
     customerName: `Customer ${i + 1}`,
     createdAt: new Date().toISOString(),
     total: 2400,
@@ -61,7 +61,7 @@ export const getOrdersMock = http.get<never, never, GetOrdersResponse>(
       orders: paginatedOrders,
       meta: {
         pageIndex,
-        perpage: 10,
+        perPage: 10, // Corrigido: 'perPage' em vez de 'perpage'
         totalCount: filteredOrders.length,
       },
     })
