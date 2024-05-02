@@ -8,7 +8,7 @@ test('sign up successfully', async ({ page }) => {
   await page.getByLabel('your phone').fill('12233444564674')
   await page.getByRole('button', { name: 'finish register' }).click()
   const toast = page.getByText('restaurant successfully registered!')
-  expect(toast).toBeVisible()
+  await expect(toast).toBeVisible()
 })
 
 test('sign up with error', async ({ page }) => {
@@ -19,11 +19,11 @@ test('sign up with error', async ({ page }) => {
   await page.getByLabel('your phone').fill('12233444564674')
   await page.getByRole('button', { name: 'finish register' }).click()
   const toast = page.getByText('error when registering restaurant.')
-  expect(toast).toBeVisible()
+  await expect(toast).toBeVisible()
 })
 
 test('navigate to new login page', async ({ page }) => {
   await page.goto('/sign-up', { waitUntil: 'networkidle' })
-  await page.getByRole('link', { name: 'finish register' }).click()
+  await page.getByRole('link', { name: 'make login' }).click()
   expect(page.url()).toContain('/sign-in')
 })
